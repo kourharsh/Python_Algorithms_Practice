@@ -30,3 +30,8 @@ SAMPLE INPUT:
 {[()]}
 {[(])}
 {{[[(())]]}}
+
+Important observation:
+s= "[[)))(]])"
+print(s[5:].find("(") ----> will return 0 as output
+print(s.find("(", 5) -----> will return 5 as output i.e. the index of substring in the main string
