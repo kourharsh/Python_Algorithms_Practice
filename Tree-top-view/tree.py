@@ -36,26 +36,60 @@ class BinarySearchTree:
                     break
 
 
-"""
-Node is defined as
-self.left (the left child of the node)
-self.right (the right child of the node)
-self.info (the value of the node)
-"""
+def levelordertraversal(root):
+    s = []
+    listqueue = []
+    listqueue.append(root)
+    while (len(listqueue) != 0):
+        first = listqueue[0]
+        listqueue.remove(first)
+        s.append(first.info)
+        if first.left:
+            listqueue.append(first.left)
+        if first.right:
+            listqueue.append(first.right)
+    return s
 
 
-def topView(root, hd, m):
+def topView_h(root, hd, m):
     # Write your code here
     if root == None:
         return
     else:
         if hd not in m.keys():
-            m[hd] = root.info
+            m[hd] = [root.info]
+        else:
+            l = m[hd]
+            l.append(root.info)
+            m[hd] = l
         if root.left:
-            topView(root.left, hd-1, m)
+            topView_h(root.left, hd - 1, m)
         if root.right:
-            topView(root.right, hd+1, m)
+            topView_h(root.right, hd + 1, m)
     return m
+
+
+def topView(root):
+    s = levelordertraversal(root)
+    # print(s)
+    m = {}
+    hd = 0
+    l = topView_h(root, hd, m)
+    # print(l)
+    ok = list(l.keys())
+    ok.sort()
+    # print(l)
+    for key in ok:
+        l_list = l[key]
+        index = 999999999999
+        elem = 0
+        for i in l_list:
+            i_current = s.index(i)
+            # print(i_current)
+            if i_current < index:
+                index = i_current
+                elem = i
+        print(elem, end=" ")
 
 
 tree = BinarySearchTree()
@@ -65,13 +99,5 @@ arr = list(map(int, input().split()))
 
 for i in range(t):
     tree.create(arr[i])
-m = {}
-hd = 0
-l = topView(tree.root, hd, m)
-ok = list(l.keys())
-ok.sort()
 
-#print(ok)
-
-for key in ok:
-    print(l[key], end= " ")
+topView(tree.root)
