@@ -1,0 +1,16 @@
+Algorithm Followed:
+
+Build a Trie from the given products.
+main_list = [[
+For each prefix of the word to be searched, find if the prefix exists in Trie:
+  if prefix not found:
+    return False and listwords = empty
+  elif prefix found and last node has no further children:
+    return False and listwords = [prefix]
+  else:
+    return True and listwords = []
+    for the lastnode of the prefix found in the trie, recursively print all the possible words.
+      sort the returned list of words and pick first three words
+      Append in the main_list.
+ return main_list
+    
